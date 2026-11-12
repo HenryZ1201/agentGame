@@ -1,0 +1,119 @@
+# 补标注草稿 · 2026/11/11 20:57:09 · node tools/grow.js label
+# 给已有熟客补上这些特征：plant=是植物、wood=是木头做的、container=能装东西、screen=有屏幕、legs=有腿、person=是人
+# 判断方式：模型整体判断一次，再逐个特征单独问一次；两次一致才算数，不一致记为 unsure（说不准）。
+#
+# 审核：逐行看 yes / unsure，改掉判错的。上面这几个特征里，没写进 yes 或 unsure 的，合并后一律算“不符合”。
+#       拿不准的宁可放进 unsure，也别硬标：熟客的标注就是考题的标准答案。
+#       改完运行：node tools/grow.js merge drafts/label-2026-11-11_2057.yaml
+#
+# 统计：
+#   是植物：符合 6 位 · 说不准 0 位
+#   是木头做的：符合 1 位 · 说不准 0 位
+#   能装东西：符合 3 位 · 说不准 7 位
+#   有屏幕：符合 2 位 · 说不准 3 位
+#   有腿：符合 33 位 · 说不准 1 位
+#   是人：符合 3 位 · 说不准 0 位
+attributes: [plant, wood, container, screen, legs, person]
+update:
+  - { name: 猫, yes: [legs] }   # 🐱 符合：有腿
+  - { name: 狗, yes: [legs] }   # 🐶 符合：有腿
+  - { name: 兔子, yes: [legs] }   # 🐰 符合：有腿
+  - { name: 熊猫, yes: [legs] }   # 🐼 符合：有腿
+  - { name: 老虎, yes: [legs] }   # 🐯 符合：有腿
+  - { name: 马, yes: [legs] }   # 🐴 符合：有腿
+  - { name: 大象, yes: [legs] }   # 🐘 符合：有腿
+  - { name: 长颈鹿, yes: [legs] }   # 🦒 符合：有腿
+  - { name: 金鱼 }   # 🐟 都不符合
+  - { name: 鲸鱼 }   # 🐋 都不符合
+  - { name: 鲨鱼 }   # 🦈 都不符合
+  - { name: 章鱼 }   # 🐙 都不符合
+  - { name: 螃蟹, yes: [legs] }   # 🦀 符合：有腿
+  - { name: 鸽子, yes: [legs] }   # 🕊️ 符合：有腿
+  - { name: 老鹰, yes: [legs] }   # 🦅 符合：有腿
+  - { name: 蝴蝶, yes: [legs] }   # 🦋 符合：有腿
+  - { name: 蚊子, yes: [legs] }   # 🦟 符合：有腿
+  - { name: 蜜蜂, yes: [legs] }   # 🐝 符合：有腿
+  - { name: 企鹅, yes: [legs] }   # 🐧 符合：有腿
+  - { name: 蛇 }   # 🐍 都不符合
+  - { name: 蜘蛛, yes: [legs] }   # 🕷️ 符合：有腿
+  - { name: 蚂蚁, yes: [legs] }   # 🐜 符合：有腿
+  - { name: 蜗牛 }   # 🐌 都不符合
+  - { name: 蚯蚓 }   # 🪱 都不符合
+  - { name: 蟑螂, yes: [legs] }   # 🪳 符合：有腿
+  - { name: 青蛙, yes: [legs] }   # 🐸 符合：有腿
+  - { name: 乌龟, yes: [legs] }   # 🐢 符合：有腿
+  - { name: 海豚 }   # 🐬 都不符合
+  - { name: 水母 }   # 🪼 都不符合
+  - { name: 鳄鱼, yes: [legs] }   # 🐊 符合：有腿
+  - { name: 蝙蝠, yes: [legs] }   # 🦇 符合：有腿
+  - { name: 公鸡, yes: [legs] }   # 🐓 符合：有腿
+  - { name: 羊, yes: [legs] }   # 🐑 符合：有腿
+  - { name: 猴子, yes: [legs] }   # 🐒 符合：有腿
+  - { name: 仓鼠, yes: [legs] }   # 🐹 符合：有腿
+  - { name: 狮子, yes: [legs] }   # 🦁 符合：有腿
+  - { name: 婴儿, yes: [legs, person] }   # 👶 符合：有腿、是人
+  - { name: 厨师, yes: [legs, person] }   # 👨‍🍳 符合：有腿、是人
+  - { name: 消防员, yes: [legs, person] }   # 🧑‍🚒 符合：有腿、是人
+  - { name: 苹果, yes: [plant] }   # 🍎 符合：是植物
+  - { name: 西瓜, yes: [plant] }   # 🍉 符合：是植物
+  - { name: 香蕉, yes: [plant] }   # 🍌 符合：是植物
+  - { name: 面包 }   # 🍞 都不符合
+  - { name: 鸡蛋 }   # 🥚 都不符合
+  - { name: 汉堡 }   # 🍔 都不符合
+  - { name: 冰淇淋 }   # 🍦 都不符合
+  - { name: 火锅 }   # 🍲 都不符合
+  - { name: 牛奶 }   # 🥛 都不符合
+  - { name: 可乐 }   # 🥤 都不符合
+  - { name: 咖啡 }   # ☕ 都不符合
+  - { name: 洗发水, unsure: [container] }   # 🧴 说不准：能装东西
+  - { name: 汽油 }   # ⛽ 都不符合
+  - { name: 墨水 }   # 🖋️ 都不符合
+  - { name: 手机, yes: [screen] }   # 📱 符合：有屏幕
+  - { name: 电视, yes: [screen] }   # 📺 符合：有屏幕
+  - { name: 冰箱, yes: [container] }   # 🧊 符合：能装东西（审核改）
+  - { name: 电饭煲, unsure: [container] }   # 🍚 说不准：能装东西
+  - { name: 吹风机 }   # 💨 都不符合
+  - { name: 电动牙刷 }   # 🪥 都不符合
+  - { name: 台灯 }   # 💡 都不符合
+  - { name: 耳机 }   # 🎧 都不符合
+  - { name: 机器人, unsure: [legs] }   # 🤖 说不准：有腿（审核改）
+  - { name: 汽车, unsure: [container, screen] }   # 🚗 说不准：能装东西、有屏幕
+  - { name: 自行车 }   # 🚲 都不符合
+  - { name: 滑板 }   # 🛹 都不符合
+  - { name: 行李箱, yes: [container] }   # 🧳 符合：能装东西
+  - { name: 购物车, yes: [container] }   # 🛒 符合：能装东西
+  - { name: 火车 }   # 🚆 都不符合
+  - { name: 轮椅 }   # 🦽 都不符合
+  - { name: 飞机, unsure: [screen] }   # ✈️ 说不准：有屏幕
+  - { name: 直升机, unsure: [screen] }   # 🚁 说不准：有屏幕
+  - { name: 无人机 }   # 🛸 都不符合
+  - { name: 热气球, unsure: [container] }   # 🎈 说不准：能装东西
+  - { name: 硬币 }   # 🪙 都不符合
+  - { name: 钥匙 }   # 🔑 都不符合
+  - { name: 剪刀 }   # ✂️ 都不符合
+  - { name: 菜刀 }   # 🔪 都不符合
+  - { name: 炒锅, unsure: [container] }   # 🍳 说不准：能装东西
+  - { name: 勺子 }   # 🥄 都不符合
+  - { name: 筷子, unsure: [wood] }   # 🥢 说不准：是木头做的（审核改）
+  - { name: 碗, yes: [container] }   # 🥣 符合：能装东西
+  - { name: 帽子 }   # 🧢 都不符合
+  - { name: 袜子 }   # 🧦 都不符合
+  - { name: 围巾 }   # 🧣 都不符合
+  - { name: 眼镜, unsure: [legs] }   # 👓 说不准：有腿
+  - { name: 戒指 }   # 💍 都不符合
+  - { name: 手表 }   # ⌚ 都不符合
+  - { name: 高跟鞋 }   # 👠 都不符合
+  - { name: 皇冠 }   # 👑 都不符合
+  - { name: 大树, yes: [plant] }   # 🌳 符合：是植物
+  - { name: 仙人掌, yes: [plant] }   # 🌵 符合：是植物
+  - { name: 向日葵, yes: [plant] }   # 🌻 符合：是植物
+  - { name: 石头 }   # 🪨 都不符合
+  - { name: 书 }   # 📕 都不符合
+  - { name: 雨伞 }   # ☂️ 都不符合
+  - { name: 椅子, yes: [legs], unsure: [wood] }   # 🪑 符合：有腿；说不准：是木头做的（审核改）
+  - { name: 房子, unsure: [container] }   # 🏠 说不准：能装东西
+  - { name: 泰迪熊, yes: [legs] }   # 🧸 符合：有腿
+  - { name: 雪人 }   # ⛄ 都不符合
+  - { name: 蜡烛 }   # 🕯️ 都不符合
+  - { name: 足球 }   # ⚽ 都不符合
+  - { name: 铅笔, yes: [wood] }   # ✏️ 符合：是木头做的

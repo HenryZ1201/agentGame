@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>师傅，我办好了！· 原型 D1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-phase="BRIEF">
+  <div id="app">
+    <header id="topbar">
+      <div class="brand">🧑‍🎓 师傅，我办好了！<span class="day">D1 · 订周六火锅</span></div>
+      <div class="today">📅 今天：周四 11/12</div>
+      <div class="stats">
+        <span class="stat">⏱ <b id="timer">0.0</b>s</span>
+        <span class="stat" id="score-wrap">⭐ <b id="score">0</b></span>
+      </div>
+      <button type="button" id="btn-settings" class="icon-btn" title="模型设置">⚙️</button>
+    </header>
+
+    <main id="stage">
+      <aside id="left">
+        <div class="sticky">
+          <div class="sticky-pin">📌</div>
+          <div class="sticky-title">给小冒的任务便利贴</div>
+          <div class="sticky-body">
+            帮我订<b>周六</b>晚上<b>6点</b>的<b>火锅</b>，<b>4个人</b>，人均别超过<b>¥150</b>。<br><br>
+            订好了在<b>「火锅搭子群」</b>里说一声～
+          </div>
+          <div class="sticky-sign">—— 师傅（你）</div>
+        </div>
+        <div class="howto">
+          <div class="howto-title">带教口诀</div>
+          <ol>
+            <li>盯着小冒的<b>光标</b>和底部的<b>操作记录</b></li>
+            <li>和便利贴不一样？按 <kbd>空格</kbd> 喊停</li>
+            <li>点出错的那一步，<b>跟它说一句话</b></li>
+            <li>没错的步骤，别乱改</li>
+          </ol>
+        </div>
+      </aside>
+
+      <section id="desktop">
+        <div id="pause-banner">✋ 已喊停 · 点一下出错的那一步（底部记录或红框处）· 再按 <kbd>空格</kbd> 继续</div>
+
+        <div class="window" id="win-dp">
+          <div class="win-title"><span class="dots"><i></i><i></i><i></i></span>🍲 吃点啥 · 美食点评</div>
+          <div class="win-body dp">
+            <div class="dp-searchbar">
+              <input id="dp-search" readonly tabindex="-1" placeholder="搜索餐厅、菜系">
+              <button type="button" tabindex="-1" id="dp-search-btn">搜索</button>
+            </div>
+            <div class="dp-results" id="dp-results"></div>
+            <div class="dp-booking hidden" id="dp-booking">
+              <div class="bk-title">预订 · <span id="dp-bk-name"></span></div>
+              <div class="bk-row">
+                <span class="bk-label">日期</span>
+                <button type="button" tabindex="-1" class="opt" data-group="date" data-key="周五" data-val="周五 11/13">周五 11/13</button>
+                <button type="button" tabindex="-1" class="opt" data-group="date" data-key="周六" data-val="周六 11/14">周六 11/14</button>
+                <button type="button" tabindex="-1" class="opt" data-group="date" data-key="周日" data-val="周日 11/15">周日 11/15</button>
+              </div>
+              <div class="bk-row">
+                <span class="bk-label">时间</span>
+                <button type="button" tabindex="-1" class="opt" data-group="time" data-key="17:00" data-val="17:00">17:00</button>
+                <button type="button" tabindex="-1" class="opt" data-group="time" data-key="18:00" data-val="18:00">18:00</button>
+                <button type="button" tabindex="-1" class="opt" data-group="time" data-key="19:00" data-val="19:00">19:00</button>
+              </div>
+              <div class="bk-row">
+                <span class="bk-label">人数</span>
+                <button type="button" tabindex="-1" class="opt" data-group="people" data-key="2位" data-val="2位">2位</button>
+                <button type="button" tabindex="-1" class="opt" data-group="people" data-key="3位" data-val="3位">3位</button>
+                <button type="button" tabindex="-1" class="opt" data-group="people" data-key="4位" data-val="4位">4位</button>
+                <button type="button" tabindex="-1" class="opt" data-group="people" data-key="5位" data-val="5位">5位</button>
+                <button type="button" tabindex="-1" class="opt" data-group="people" data-key="6位" data-val="6位">6位</button>
+              </div>
+              <button type="button" tabindex="-1" class="bk-submit" id="dp-submit">提交预订</button>
+              <div class="dp-toast hidden" id="dp-toast"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="window hidden" id="win-chat">
+          <div class="win-title"><span class="dots"><i></i><i></i><i></i></span>💬 微聊</div>
+          <div class="win-body chat">
+            <div class="chat-list">
+              <button type="button" tabindex="-1" class="chat-g" id="chat-g-family">👨‍👩‍👧 相亲相爱一家人</button>
+              <button type="button" tabindex="-1" class="chat-g" id="chat-g-hotpot">🍲 火锅搭子群</button>
+              <button type="button" tabindex="-1" class="chat-g" id="chat-g-work">💼 项目冲刺组</button>
+            </div>
+            <div class="chat-main">
+              <div class="chat-head" id="chat-head">选择一个聊天</div>
+              <div class="chat-msgs" id="chat-msgs"></div>
+              <div class="chat-inputbar">
+                <input id="chat-input" readonly tabindex="-1" placeholder="发消息…">
+                <button type="button" tabindex="-1" id="chat-send">发送</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="dock">
+          <span class="dock-icon" title="美食点评">🍲</span>
+          <span class="dock-icon" id="dock-chat" title="微聊">💬</span>
+          <span class="dock-icon" title="地图">🗺️</span>
+          <span class="dock-icon" title="邮件">📧</span>
+          <span class="dock-icon" title="购物">🛒</span>
+          <span class="dock-icon" title="钱包">👛</span>
+        </div>
+
+        <div id="ghost">
+          <svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 2l7.5 19 2.6-7.7L21 10.6z" fill="#3b82f6" fill-opacity=".85" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span class="ghost-face">🧑‍🎓</span>
+        </div>
+      </section>
+
+      <aside id="right">
+        <div class="intern-card">
+          <div class="avatar-wrap"><div class="avatar">🧑‍🎓</div><div class="mood" id="mood">😄</div></div>
+          <div class="intern-name">小冒 · AI 实习生</div>
+          <div class="bubble" id="bubble">师傅，今天有啥活儿？</div>
+        </div>
+        <div class="trust-panel">
+          <div class="panel-label">信任档位 <span>越放手，得分越高</span></div>
+          <div class="speed-group">
+            <button type="button" data-speed="1" class="active"><b>1x</b><small>盯着做 ×1</small></button>
+            <button type="button" data-speed="2"><b>2x</b><small>偶尔看看 ×1.5</small></button>
+            <button type="button" data-speed="4"><b>4x</b><small>放手去做 ×2</small></button>
+          </div>
+        </div>
+        <button type="button" id="btn-pause" class="big-red">✋ 喊停！<small>空格键</small></button>
+      </aside>
+    </main>
+
+    <footer id="taskbar">
+      <div class="tb-label">小冒的操作记录<small>Tool Calls</small></div>
+      <div id="chips" class="chips"><div class="chips-empty">小冒还没开始干活……</div></div>
+    </footer>
+  </div>
+
+  <div id="pop" class="pop hidden">
+    <div class="pop-head">你指出了第 <b id="pop-no"></b> 步</div>
+    <div class="pop-step" id="pop-step"></div>
+    <div class="pop-label">跟小冒说一句：</div>
+    <div class="pop-input-row">
+      <input id="pop-input" placeholder="比如：这里应该是……" maxlength="60" autocomplete="off">
+      <button type="button" id="pop-send" class="primary">发送</button>
+    </div>
+    <div class="pop-hints" id="pop-hints"></div>
+    <div class="pop-reply hidden" id="pop-reply"></div>
+    <div class="pop-confirm hidden" id="pop-confirm">
+      <button type="button" id="pop-yes" class="primary">对，就这样</button>
+      <button type="button" id="pop-retry">不对，我重说</button>
+    </div>
+    <div class="pop-foot"><span id="pop-mode"></span><button type="button" id="pop-cancel" class="link">取消（Esc）</button></div>
+  </div>
+
+  <div class="overlay" id="start">
+    <div class="card start-card">
+      <div class="logo">🧑‍🎓</div>
+      <h1>师傅，我办好了！</h1>
+      <p class="sub">Agent OS 启蒙小游戏 · 原型 D1「订周六火锅」</p>
+      <ol class="rules">
+        <li>新来的 AI 实习生<b>小冒</b>会在电脑上替你办事，但它有点<b>冒失</b>。</li>
+        <li>盯着它的光标和底部的<b>操作记录</b>，对照左边的<b>任务便利贴</b>。</li>
+        <li>发现不对就按 <kbd>空格</kbd> 喊停，点出错的那一步，<b>用一句话</b>纠正它。</li>
+        <li>没错的步骤别乱改。<b>信任档位</b>开得越高，得分倍率越高；暂停时计时不停。</li>
+      </ol>
+      <div class="mode-line">纠正理解：<span id="start-mode"></span><button type="button" class="link" id="start-settings">设置</button></div>
+      <button type="button" class="primary big" id="btn-start">开始接单</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="settle">
+    <div class="card settle-card" id="settle-card"></div>
+  </div>
+
+  <div class="overlay hidden" id="settings">
+    <div class="card settings-card">
+      <h2>⚙️ 纠正理解模块</h2>
+      <p class="desc">玩家的纠正语句会发给一个 OpenAI 兼容的 <code>/chat/completions</code> 接口，解析成 JSON 指令。接口不可用时自动退回离线规则。</p>
+      <div class="field radios">
+        <label><input type="radio" name="cfg-mode" value="llm"> 调用模型 API</label>
+        <label><input type="radio" name="cfg-mode" value="rule"> 离线规则（无需模型）</label>
+      </div>
+      <div class="presets">快速填入：
+        <button type="button" data-preset="ollama">本地 Ollama · qwen3:4b</button>
+        <button type="button" data-preset="lmstudio">LM Studio</button>
+        <button type="button" data-preset="dashscope">阿里云百炼 · qwen3-4b</button>
+      </div>
+      <div class="field"><label for="cfg-base">Base URL</label><input id="cfg-base" spellcheck="false"></div>
+      <div class="field"><label for="cfg-model">模型名</label><input id="cfg-model" spellcheck="false"></div>
+      <div class="field"><label for="cfg-key">API Key</label><input id="cfg-key" type="password" placeholder="本地服务可留空"></div>
+      <div class="field"><label for="cfg-timeout">超时 (ms)</label><input id="cfg-timeout" type="number" min="1000" step="1000"></div>
+      <div class="field checks">
+        <label><input type="checkbox" id="cfg-nothink"> 在末尾追加 <code>/no_think</code>（Qwen3 混合思考模型）</label>
+        <label><input type="checkbox" id="cfg-thinkparam"> 请求体附加 <code>enable_thinking:false</code>（阿里云百炼需要）</label>
+        <label><input type="checkbox" id="cfg-json"> 请求 <code>response_format: json_object</code></label>
+        <label><input type="checkbox" id="cfg-debug"> 显示解析日志面板</label>
+      </div>
+      <div class="test-row">
+        <button type="button" id="cfg-test">用当前设置测试：「是周六不是周日」</button>
+        <pre id="cfg-test-out"></pre>
+      </div>
+      <div class="actions">
+        <button type="button" id="cfg-cancel">取消</button>
+        <button type="button" class="primary" id="cfg-save">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="debug" class="debug hidden">
+    <div class="debug-head">🔧 纠正解析日志<button type="button" id="debug-toggle" class="link">收起</button></div>
+    <div id="debug-list"><div class="debug-empty">还没有纠正记录</div></div>
+  </div>
+
+  <script src="js/level-d1.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

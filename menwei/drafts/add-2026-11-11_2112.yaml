@@ -1,0 +1,13 @@
+# 提名客人草稿 · 2026/11/11 21:12:24 · node tools/grow.js add
+# 每位都经过：模型整体判断一次 + 每个特征单独问一次，两次不一致的特征记为 unsure（说不准）。
+#
+# 审核：改掉判错的 yes / unsure；没写进 yes 或 unsure 的特征一律算“不符合”。
+#       改完运行：node tools/grow.js merge drafts/add-2026-11-11_2112.yaml
+#
+# 没收录：无
+add:
+  - { name: 电子词典, emoji: 📖, yes: [plug, screen] }   # 要插电、有屏幕；⚠️ 模型觉得不像常见名词
+  - { name: 点读机, emoji: 📚, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 投影仪, emoji: 📽️, yes: [plug] }   # 要插电
+  - { name: 电子秤, emoji: ⚖️, yes: [plug], unsure: [screen, legs] }   # 要插电、有屏幕；说不准：有腿
+  - { name: 弓, emoji: 🏹, yes: [], unsure: [wood] }   # 都不符合；说不准：是木头做的

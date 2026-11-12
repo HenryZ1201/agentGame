@@ -1,0 +1,38 @@
+# 新熟客草稿 · 2026/11/11 21:09:15 · node tools/grow.js gen
+# 补的是名单里缺的特征组合：同时符合两个特征的熟客太少，“而且”规则就出不来；单个特征的熟客太少，规则也出不来。
+# 每位都经过：模型整体判断一次 + 每个特征单独问一次，两次不一致的特征记为 unsure（说不准）。
+#
+# 审核：删掉不常见、有争议、和已有熟客几乎重复的；改掉判错的 yes / unsure。
+#       没写进 yes 或 unsure 的特征一律算“不符合”，所以漏标的符合特征要补上。
+#       改完运行：node tools/grow.js merge drafts/gen-2026-11-11_2109.yaml
+#
+# 统计：63 个缺口，模型给不出合格候选的 57 个（多半现实里本来就少见）；
+#       收录 23 位，复核没通过丢掉 7 位。
+#       不像常见名词、没收录的：盒、琴、电子表、自动门、木马、电子秤、木箱、木桶、木盆、木柜、木盒、木匣、木篓、木篮、木人、木鸡
+add:
+  # 是木头做的（名单里原有 5 位）
+  - { name: 鼓, emoji: 🥁, yes: [], unsure: [wood] }   # 说不准：是木头做的（审核改）
+  # 是人（名单里原有 5 位）
+  - { name: 学生, emoji: 🎒, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 护士, emoji: 👩‍⚕️, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 警察, emoji: 👮, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 司机, emoji: 🚗, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 农民, emoji: 👨‍🌾, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 工人, emoji: 👷, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 记者, emoji: 👨‍💼, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 律师, emoji: 👨‍⚖️, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 演员, emoji: 🎭, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 画家, emoji: 👨‍🎨, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  - { name: 歌手, emoji: 🎤, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：长毛
+  # 有屏幕（名单里原有 7 位）
+  - { name: 收银机, emoji: 🧾, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 取款机, emoji: 🏧, yes: [plug, screen], unsure: [big, metal] }   # 要插电、有屏幕；说不准：比人大、是金属做的
+  - { name: 导航仪, emoji: 🧭, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 售票机, emoji: 🎫, yes: [plug, screen], unsure: [big, legs] }   # 要插电、有屏幕；说不准：比人大、有腿
+  # 是植物（名单里原有 10 位）
+  - { name: 松树, emoji: 🌲, yes: [plant], unsure: [big] }   # 是植物；说不准：比人大
+  - { name: 柳树, emoji: 🌳, yes: [big, plant] }   # 比人大、是植物
+  - { name: 杨树, emoji: 🌳, yes: [big, plant] }   # 比人大、是植物
+  - { name: 竹子, emoji: 🎋, yes: [plant], unsure: [big, wood] }   # 是植物；说不准：比人大、是木头做的
+  - { name: 菊花, emoji: 🌼, yes: [plant] }   # 是植物
+  - { name: 梅花, emoji: 🌸, yes: [plant] }   # 是植物

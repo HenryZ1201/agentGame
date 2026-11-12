@@ -1,0 +1,14 @@
+# 提名客人草稿 · 2026/11/11 21:11:18 · node tools/grow.js add
+# 每位都经过：模型整体判断一次 + 每个特征单独问一次，两次不一致的特征记为 unsure（说不准）。
+#
+# 审核：改掉判错的 yes / unsure；没写进 yes 或 unsure 的特征一律算“不符合”。
+#       改完运行：node tools/grow.js merge drafts/add-2026-11-11_2111.yaml
+#
+# 没收录：弓（判断失败：fetch failed）
+add:
+  - { name: 拐杖, emoji: 🦯, yes: [], unsure: [wood] }   # 都不符合
+  - { name: 船桨, emoji: 🚣, yes: [], unsure: [wood] }   # 都不符合；说不准：是木头做的
+  - { name: 毛笔, emoji: 🖌️, yes: [wood] }   # 是木头做的
+  - { name: 鸟笼, emoji: 🕊️, yes: [container], unsure: [metal] }   # 能装东西；说不准：是金属做的
+  - { name: 扫帚, emoji: 🧹, yes: [wood], unsure: [plant] }   # 是木头做的；说不准：是植物
+  - { name: 菜板, emoji: 🪵, yes: [cook, wood] }   # 是厨具餐具、是木头做的

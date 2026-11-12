@@ -1,0 +1,87 @@
+# 新熟客草稿 · 2026/11/11 21:02:20 · node tools/grow.js gen
+# 补的是名单里缺的特征组合：同时符合两个特征的熟客太少，“而且”规则就出不来；单个特征的熟客太少，规则也出不来。
+# 每位都经过：模型整体判断一次 + 每个特征单独问一次，两次不一致的特征记为 unsure（说不准）。
+#
+# 审核：删掉不常见、有争议、和已有熟客几乎重复的；改掉判错的 yes / unsure。
+#       没写进 yes 或 unsure 的特征一律算“不符合”，所以漏标的符合特征要补上。
+#       改完运行：node tools/grow.js merge drafts/gen-2026-11-11_2102.yaml
+#
+# 统计：155 个缺口，模型给不出合格候选的 124 个（多半现实里本来就少见）；
+#       收录 54 位，复核没通过丢掉 24 位。
+#       不像常见名词、没收录的：杯、贝、铁鸟、纸鹤、纸船、鸟窝、自动门、手机壳、电脑包、打印机墨盒、吸尘器集尘袋、电子表、木马、木车、四轮车、牛车、童车、摩天大楼、铁塔、蓝鲸、汁、北极熊、皮鞋、勺、筷、箱、瓶、皮草、手提包、公文包、篮、木盒、电视柜、电脑桌、办公桌
+add:
+  # 有屏幕（名单里原有 2 位）
+  - { name: 电脑, emoji: 💻, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 平板, emoji: 📱, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 相机, emoji: 📷, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 计算器, emoji: 🧮, yes: [plug, screen] }   # 要插电、有屏幕
+  # 能装东西（名单里原有 3 位）
+  - { name: 书包, emoji: 🎒, yes: [container] }   # 能装东西
+  - { name: 口袋, emoji: 👖, yes: [container] }   # 能装东西
+  - { name: 钱包, emoji: 👛, yes: [container] }   # 能装东西
+  - { name: 抽屉, emoji: 🗄️, yes: [container], unsure: [wood] }   # 能装东西；说不准：是木头做的
+  # 是液体（名单里原有 6 位）
+  - { name: 水, emoji: 💧, yes: [edible, liquid] }   # 能吃能喝、是液体
+  - { name: 酒, emoji: 🍷, yes: [edible, liquid] }   # 能吃能喝、是液体
+  # 是厨具餐具（名单里原有 6 位）
+  - { name: 盘, emoji: 🍽️, yes: [cook] }   # 是厨具餐具
+  # 是植物（名单里原有 6 位）
+  - { name: 玫瑰, emoji: 🌹, yes: [plant] }   # 是植物
+  - { name: 兰花, emoji: 🌸, yes: [plant] }   # 是植物
+  # 住在水里（名单里原有 7 位）
+  - { name: 鱼, emoji: 🐟, yes: [animal, water], unsure: [edible] }   # 是动物、住在水里；说不准：能吃能喝
+  # 能吃能喝、住在水里（名单里原有 0 位）
+  - { name: 虾, emoji: 🦐, yes: [animal, edible, water, legs] }   # 是动物、能吃能喝、住在水里、有腿
+  # 能吃能喝、有腿（名单里原有 0 位）
+  - { name: 鸡, emoji: 🐔, yes: [animal, legs], unsure: [edible, furry] }   # 是动物、能吃能喝、有腿；说不准：长毛
+  - { name: 猪, emoji: 🐷, yes: [animal, legs], unsure: [edible, furry] }   # 是动物、能吃能喝、长毛、有腿
+  # 要插电、有轮子（名单里原有 0 位）
+  - { name: 电动车, emoji: 🛵, yes: [plug, wheels], unsure: [big, metal] }   # 要插电、有轮子；说不准：比人大、是金属做的
+  - { name: 平衡车, emoji: 🛴, yes: [plug, wheels] }   # 要插电、有轮子
+  # 要插电、比人大（名单里原有 0 位）
+  - { name: 电梯, emoji: 🛗, yes: [plug, big, metal], unsure: [container] }   # 要插电、比人大、是金属做的；说不准：能装东西
+  # 有轮子、是木头做的（名单里原有 0 位）
+  - { name: 马车, emoji: 🐎, yes: [wheels, big, wood], unsure: [container] }   # 有轮子、比人大、是木头做的；说不准：能装东西
+  # 比人大、能装东西（名单里原有 0 位）
+  - { name: 卡车, emoji: 🚛, yes: [wheels, big, metal, container] }   # 有轮子、比人大、是金属做的、能装东西
+  - { name: 集装箱, emoji: 📦, yes: [big, metal, container] }   # 比人大、是金属做的、能装东西
+  # 是木头做的、有腿（名单里原有 0 位）
+  - { name: 桌子, emoji: 🪵, yes: [wood, legs] }   # 是木头做的、有腿
+  - { name: 书架, emoji: 📚, yes: [wood, container, legs], unsure: [big] }   # 是木头做的、能装东西、有腿；说不准：比人大
+  - { name: 床, emoji: 🛏️, yes: [wood, legs], unsure: [big] }   # 是木头做的、有腿；说不准：比人大
+  # 能穿戴、能装东西（名单里原有 0 位）
+  - { name: 腰包, emoji: 👝, yes: [wear, container] }   # 能穿戴、能装东西
+  # 是厨具餐具、能装东西（名单里原有 1 位）
+  - { name: 盆, emoji: 🥣, yes: [cook, container] }   # 是厨具餐具、能装东西
+  # 是金属做的、是厨具餐具（名单里原有 1 位）
+  # 要插电、是厨具餐具（名单里原有 1 位）
+  - { name: 微波炉, emoji: 📻, yes: [plug, cook], unsure: [container] }   # 要插电、是厨具餐具；说不准：能装东西
+  - { name: 榨汁机, emoji: 🍹, yes: [plug, cook] }   # 要插电、是厨具餐具
+  - { name: 豆浆机, emoji: 🥛, yes: [plug, cook] }   # 要插电、是厨具餐具
+  - { name: 咖啡机, emoji: ☕, yes: [plug, cook] }   # 要插电、是厨具餐具
+  # 比人大、长毛（名单里原有 1 位）
+  - { name: 骆驼, emoji: 🐫, yes: [animal, big, furry, legs], unsure: [edible] }   # 是动物、比人大、长毛、有腿；说不准：能吃能喝
+  - { name: 牦牛, emoji: 🐂, yes: [animal, big, furry, legs], unsure: [edible] }   # 是动物、比人大、长毛、有腿；说不准：能吃能喝
+  # 住在水里、有腿（名单里原有 1 位）
+  - { name: 龙虾, emoji: 🦞, yes: [animal, edible, water, legs] }   # 是动物、能吃能喝、住在水里、有腿
+  # 要插电、有屏幕（名单里原有 2 位）
+  - { name: 游戏机, emoji: 🎮, yes: [plug, screen] }   # 要插电、有屏幕
+  # 有轮子、能装东西（名单里原有 2 位）
+  # 是金属做的、能穿戴（名单里原有 2 位）
+  - { name: 耳环, emoji: 💍, yes: [metal, wear] }   # 是金属做的、能穿戴
+  - { name: 手镯, emoji: 💍, yes: [metal, wear] }   # 是金属做的、能穿戴
+  - { name: 胸针, emoji: 📌, yes: [metal, wear] }   # 是金属做的、能穿戴
+  # 能吃能喝、是液体（名单里原有 3 位）
+  - { name: 果汁, emoji: 🧃, yes: [edible, liquid], unsure: [plant] }   # 能吃能喝、是液体；说不准：是植物
+  - { name: 豆浆, emoji: 🥛, yes: [edible, liquid] }   # 能吃能喝、是液体
+  # 有轮子、比人大（名单里原有 3 位）
+  - { name: 摩托车, emoji: 🏍️, yes: [wheels, big, metal] }   # 有轮子、比人大、是金属做的
+  - { name: 压路机, emoji: 🚜, yes: [wheels, big, metal] }   # 有轮子、比人大、是金属做的
+  # 能吃能喝、是植物（名单里原有 3 位）
+  - { name: 玉米, emoji: 🌽, yes: [edible, plant] }   # 能吃能喝、是植物
+  - { name: 甘蔗, emoji: 🎋, yes: [edible, plant] }   # 能吃能喝、是植物
+  # 有腿、是人（名单里原有 3 位）
+  - { name: 医生, emoji: 👨‍⚕️, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：是动物、长毛
+  - { name: 老师, emoji: 👨‍🏫, yes: [legs, person], unsure: [furry] }   # 有腿、是人；说不准：是动物、长毛
+  # 是动物、比人大（名单里原有 4 位）
+  - { name: 牛, emoji: 🐮, yes: [animal, big, furry, legs], unsure: [edible] }   # 是动物、比人大、长毛、有腿；说不准：能吃能喝

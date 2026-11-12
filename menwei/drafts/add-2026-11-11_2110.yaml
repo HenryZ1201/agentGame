@@ -1,0 +1,30 @@
+# 提名客人草稿 · 2026/11/11 21:10:51 · node tools/grow.js add
+# 每位都经过：模型整体判断一次 + 每个特征单独问一次，两次不一致的特征记为 unsure（说不准）。
+#
+# 审核：改掉判错的 yes / unsure；没写进 yes 或 unsure 的特征一律算“不符合”。
+#       改完运行：node tools/grow.js merge drafts/add-2026-11-11_2110.yaml
+#
+# 没收录：砧板（判断失败：fetch failed）
+add:
+  - { name: 吉他, emoji: 🎸, yes: [wood] }   # 是木头做的
+  - { name: 小提琴, emoji: 🎻, yes: [wood] }   # 是木头做的
+  - { name: 钢琴, emoji: 🎹, yes: [wood, legs], unsure: [big] }   # 是木头做的、有腿；说不准：比人大
+  - { name: 擀面杖, emoji: 🥖, yes: [cook], unsure: [wood] }   # 是厨具餐具；说不准：是木头做的
+  - { name: 梯子, emoji: 🪜, yes: [], unsure: [wood, legs] }   # 都不符合；说不准：有腿
+  - { name: 凳子, emoji: 🪑, yes: [legs], unsure: [wood] }   # 有腿
+  - { name: 衣柜, emoji: 🗄️, yes: [big, container], unsure: [wood] }   # 比人大、能装东西；说不准：是木头做的
+  - { name: 书柜, emoji: 🗄️, yes: [big, wood, container], unsure: [legs] }   # 比人大、是木头做的、能装东西；说不准：有腿
+  - { name: 门, emoji: 🚪, yes: [], unsure: [big, wood] }   # 都不符合；说不准：比人大
+  - { name: 算盘, emoji: 🧮, yes: [wood] }   # 是木头做的
+  - { name: 牙签, emoji: 🥢, yes: [wood], unsure: [cook] }   # 是木头做的；说不准：是厨具餐具
+  - { name: 火柴, emoji: 🔥, yes: [wood] }   # 是木头做的
+  - { name: 积木, emoji: 🧱, yes: [], unsure: [wood] }   # 都不符合；说不准：是木头做的
+  - { name: 篮子, emoji: 🧺, yes: [container], unsure: [wood] }   # 能装东西
+  - { name: 衣架, emoji: 🧥, yes: [], unsure: [wood] }   # 都不符合
+  - { name: 象棋, emoji: ♟️, yes: [], unsure: [wood] }   # 都不符合；说不准：是木头做的
+  - { name: 显示器, emoji: 🖥️, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 摄像机, emoji: 📹, yes: [plug], unsure: [screen] }   # 要插电；说不准：有屏幕
+  - { name: 跑步机, emoji: 🏃, yes: [plug, big], unsure: [metal, legs] }   # 要插电、比人大；说不准：是金属做的、有腿
+  - { name: 售货机, emoji: 🎰, yes: [plug, big], unsure: [metal, container, screen] }   # 要插电、比人大；说不准：是金属做的、能装东西、有屏幕
+  - { name: 监视器, emoji: 📹, yes: [plug, screen] }   # 要插电、有屏幕
+  - { name: 学习机, emoji: 📱, yes: [plug, screen] }   # 要插电、有屏幕

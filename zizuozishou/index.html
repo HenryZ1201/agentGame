@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>自作自受</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <!-- 开始 -->
+    <section id="screen-start" class="screen active">
+      <h1 class="logo">自作自受</h1>
+      <p class="tagline">你的每一个解法，都会变成下一个灾难。</p>
+      <ul class="rules">
+        <li>面对危机，用 <b>12 个字以内</b>说出你的解法。<span id="rule-time">每轮限时 15 秒。</span></li>
+        <li>只要不作弊，你的解法<b>一定管用</b>——但它会带来新的麻烦。</li>
+        <li>笼统、跑题、超能力会扣血。<b>3 颗心</b>。撑过 <b>8 轮</b>即闯关成功。</li>
+        <li>利用卡片下方的<b>场景物件</b>，更容易拿到「妙」。</li>
+      </ul>
+      <div class="modes" id="modes">
+        <button type="button" class="mode-card on" data-mode="rush">
+          <b>急中生智</b>
+          <span>每轮 15 秒，超时扣一颗心</span>
+        </button>
+        <button type="button" class="mode-card" data-mode="slow">
+          <b>从长计议</b>
+          <span>没有倒计时，慢慢想</span>
+        </button>
+      </div>
+      <button id="btn-start" class="btn primary">开始自作自受</button>
+      <p class="mode-line"><span class="mode-badge" id="mode-badge-start">检测模型中…</span></p>
+    </section>
+
+    <!-- 游戏 -->
+    <section id="screen-game" class="screen">
+      <header class="hud">
+        <div class="hearts" id="hearts"></div>
+        <div class="hud-mid"><span id="play-mode">急中生智</span> · 第 <b id="round">1</b>/8 轮</div>
+        <div class="hud-score">得分 <b id="score">0</b></div>
+      </header>
+
+      <div class="stage">
+        <article class="card" id="card">
+          <div class="card-top">
+            <span class="card-tag" id="card-tag">开局</span>
+            <span class="severity" id="severity"></span>
+          </div>
+          <div class="card-emoji" id="card-emoji">🐺</div>
+          <p class="card-text" id="card-text"></p>
+          <div class="items" id="items"></div>
+
+          <div class="overlay" id="overlay">
+            <div class="damage-flash" id="damage-flash"></div>
+            <div class="stamp" id="stamp">妙</div>
+            <p class="why" id="why"></p>
+            <div class="hit-report" id="hit-report" hidden>
+              <p class="hit-loss" id="hit-loss">扣了 1 颗心</p>
+              <div class="hit-hearts" id="hit-hearts"></div>
+              <p class="hit-left" id="hit-left">还剩 2 颗心</p>
+            </div>
+            <p class="delta" id="delta"></p>
+          </div>
+          <div class="brewing" id="brewing"><span class="dots"></span><span id="brewing-text">后果正在发酵</span></div>
+        </article>
+      </div>
+
+      <div class="timer"><div class="timer-bar" id="timer-bar"></div></div>
+
+      <form class="answer" id="answer-form" autocomplete="off">
+        <input id="answer" type="text" maxlength="12" placeholder="你打算怎么办？" />
+        <span class="counter" id="counter">0/12</span>
+        <button class="btn primary" id="btn-submit" type="submit">就这么办</button>
+      </form>
+
+      <div class="chain" id="chain"></div>
+
+      <details class="debug">
+        <summary>调试面板 · <span class="mode-badge" id="mode-badge-game"></span></summary>
+        <div id="debug-log"></div>
+      </details>
+    </section>
+
+    <!-- 结束 -->
+    <section id="screen-over" class="screen">
+      <div class="tomb" id="ending-mark">🪦</div>
+      <p class="ending-kicker" id="ending-kicker">墓志铭</p>
+      <p class="epitaph" id="epitaph">正在撰写墓志铭…</p>
+      <p class="story" id="story">正在把整条因果链写成一个故事…</p>
+      <div class="stats" id="stats"></div>
+      <div class="chain final" id="final-chain"></div>
+      <div class="over-actions">
+        <button class="btn" id="btn-share">复制战绩</button>
+        <button class="btn primary" id="btn-again">再自作自受一次</button>
+      </div>
+      <p class="toast" id="toast"></p>
+    </section>
+  </main>
+
+  <script src="js/content.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

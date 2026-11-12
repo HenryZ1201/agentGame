@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>门卫交班夜</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>try { document.documentElement.dataset.skin = localStorage.getItem('mw-skin') || 'night'; } catch (e) {}</script>
+</head>
+<body>
+  <main class="app">
+    <!-- 开始 -->
+    <section id="screen-start" class="screen active">
+      <div class="start-door">🚪</div>
+      <h1 class="logo">门卫交班夜</h1>
+      <p class="tagline">老K 要退休了。他放人只认一条<b>暗规矩</b>，从来不说，<br />你得自己看出来，才能接他的班。</p>
+
+      <ol class="steps">
+        <li><i>👀</i><b>看</b><span>老K 先示范<br />放谁、拦谁</span></li>
+        <li><i>🙋</i><b>试</b><span>你领 <em id="step-probes">8</em> 位客人<br />给他看</span></li>
+        <li><i>🚪</i><b>判</b><span>换你守门<br /><em id="step-exam">5</em> 位全判对就出师</span></li>
+      </ol>
+
+      <div class="example">
+        <p>举个例子：规矩是<b>「是水果的才能进」</b></p>
+        <div class="example-row">
+          <span class="in">🍎 苹果 进</span><span class="in">🍌 香蕉 进</span>
+          <span class="out">🥕 胡萝卜 不进</span><span class="out">🐶 狗 不进</span>
+        </div>
+      </div>
+
+      <div class="start-actions" id="start-actions">
+        <button id="btn-daily" class="btn primary start-main">开始今晚交班<small>每天一题 · 大家同一道 · 只记第一次成绩</small></button>
+        <button id="btn-practice" class="btn link">先练习一局（随机难度，不记成绩）</button>
+      </div>
+      <div class="diff" id="diff-start" hidden></div>
+      <p class="daily-note" id="daily-note"></p>
+
+      <details class="more">
+        <summary>更多说明</summary>
+        <ul>
+          <li>规矩只看客人<b>是什么</b>（会不会飞、是不是金属做的……），跟名字几个字、哪个字开头无关。</li>
+          <li>领客人时说常见的名字就行，比如「猫」「冰箱」「医生」，别加形容词。</li>
+          <li>老K 拿不准、或者你领来的不算客人时，不扣次数。</li>
+          <li id="rule-examples"></li>
+          <li>计分满分 <b id="rule-score">100</b>：判对几位最要紧；领得越少、用时越短，再加一点。倒计时只在你能操作时走，走完速度奖励就没了。</li>
+        </ul>
+      </details>
+      <p class="config-error" id="config-error" hidden></p>
+      <p class="mode-line"><span class="mode-badge" id="badge-start">检测模型中…</span></p>
+      <div class="skins" id="skins">
+        <span>皮肤</span>
+        <button type="button" data-skin="night" title="深夜蓝" style="--a:#0d1320;--b:#3d9bff"></button>
+        <button type="button" data-skin="amber" title="路灯琥珀" style="--a:#17150f;--b:#f0a53a"></button>
+        <button type="button" data-skin="guard" title="警卫室" style="--a:#101814;--b:#d9a646"></button>
+        <button type="button" data-skin="ledger" title="值班簿" style="--a:#f2ebdd;--b:#2f5f8f"></button>
+        <button type="button" data-skin="neon" title="霓虹" style="--a:#17151f;--b:#ff4fa3"></button>
+        <em id="skin-name"></em>
+      </div>
+    </section>
+
+    <!-- 游戏 -->
+    <section id="screen-game" class="screen">
+      <header class="hud">
+        <div id="hud-title">今晚交班</div>
+        <div class="timer" id="timer" title="速度奖励还剩的时间。等老K 判断的时候停表">5:00</div>
+        <div class="probes" id="probes" title="这根烟抽完前，还能领几位"></div>
+      </header>
+      <div class="bonuses">
+        <span title="按现在的用时，后面全判对还能拿到的速度奖励。等老K 的时候不计时">时间 <b id="time-bonus">+5</b></span>
+        <span title="按现在领过的人数，后面全判对还能拿到的省烟奖励。领得越多越少">尝试 <b id="probe-bonus">+10</b></span>
+      </div>
+
+      <div class="door" id="door">
+        <div class="sign">NIGHT CLUB</div>
+        <div class="judge" id="judge"></div>
+        <div class="door-row">
+          <div class="bouncer">
+            <div class="bubble" id="bubble">看好了。</div>
+            <div class="bouncer-face" id="bouncer-face">🕴️</div>
+            <div class="bouncer-name">老K</div>
+          </div>
+          <div class="guest" id="guest">
+            <div class="guest-emoji" id="guest-emoji">❔</div>
+            <div class="guest-name" id="guest-name">等你领人过来</div>
+            <div class="stamp" id="stamp"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="walls">
+        <div class="wall in">
+          <h3>✅ 放行</h3>
+          <div class="chips" id="wall-in"></div>
+        </div>
+        <div class="wall out">
+          <h3>❌ 拒之门外</h3>
+          <div class="chips" id="wall-out"></div>
+        </div>
+      </div>
+
+      <div id="probe-zone">
+        <form class="answer" id="probe-form" autocomplete="off">
+          <input id="probe" type="text" maxlength="8" placeholder="从队伍里领一位，比如：鲸鱼" />
+          <span class="counter" id="counter">0/8</span>
+          <button class="btn primary" id="btn-knock" type="submit">领过来</button>
+        </form>
+        <button class="btn ghost" id="btn-exam" type="button">我悟了，换我站门口 →</button>
+      </div>
+
+      <div id="exam-zone" hidden>
+        <p class="exam-progress"><span id="exam-progress">最后 5 位客人 · 第 1 位</span><span class="tally" id="tally"></span></p>
+        <div class="exam-actions">
+          <button class="btn big let" id="btn-let" type="button">✅ 放行</button>
+          <button class="btn big deny" id="btn-deny" type="button">❌ 拒绝</button>
+        </div>
+      </div>
+
+      <details class="debug">
+        <summary>调试面板 · <span class="mode-badge" id="badge-game"></span></summary>
+        <p class="debug-rule">偷看规则：<span id="debug-rule"></span></p>
+        <div id="debug-log"></div>
+      </details>
+    </section>
+
+    <!-- 结束 -->
+    <section id="screen-over" class="screen">
+      <div class="over-mark" id="over-mark">🕶️</div>
+      <p class="over-title" id="over-title"></p>
+      <p class="over-line" id="over-line"></p>
+      <div class="score" id="score"></div>
+      <p class="kicker">老K 的规矩是</p>
+      <p class="rule-reveal" id="rule-reveal"></p>
+      <div class="squares" id="squares"></div>
+      <div class="stats" id="stats"></div>
+      <h4 class="eyes-title">今晚门口的每一位</h4>
+      <div class="eyes" id="eyes"></div>
+      <div class="diff" id="diff-over" hidden></div>
+      <div class="over-actions">
+        <button class="btn" id="btn-share">复制战绩</button>
+        <button class="btn primary" id="btn-again">练习一局</button>
+        <button class="btn" id="btn-home">回门口</button>
+      </div>
+      <p class="toast" id="toast"></p>
+    </section>
+  </main>
+
+  <script src="js/vendor/js-yaml.min.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

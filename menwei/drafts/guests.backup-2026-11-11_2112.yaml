@@ -1,0 +1,218 @@
+# 老K 认识的熟客。开局示范和最后几位考题只从这里出，答案以这里为准，不经过模型。
+# 玩家领来的客人如果在这里，也直接按这里的标注判断。
+#
+# name：名字    emoji：头像
+# yes：符合的特征（填 config.yaml 里 attributes 的 id）；没写的特征一律算“不符合”
+# unsure：说不准的特征。用到这些特征的规则，不会拿这位客人出题；玩家领来时交给模型判断
+#
+# 注意：在 config.yaml 新增特征后，要在这里给客人补标注；
+#       一位客人都没标注过的特征，不会被用来出规则。
+
+- { name: 猫, emoji: 🐱, yes: [animal, furry, legs] }
+- { name: 狗, emoji: 🐶, yes: [animal, furry, legs] }
+- { name: 兔子, emoji: 🐰, yes: [animal, furry, legs], unsure: [edible] }
+- { name: 熊猫, emoji: 🐼, yes: [animal, furry, legs], unsure: [big] }
+- { name: 老虎, emoji: 🐯, yes: [animal, furry, legs], unsure: [big] }
+- { name: 马, emoji: 🐴, yes: [animal, big, furry, legs] }
+- { name: 大象, emoji: 🐘, yes: [animal, big, legs], unsure: [furry] }
+- { name: 长颈鹿, emoji: 🦒, yes: [animal, big, legs], unsure: [furry] }
+- { name: 金鱼, emoji: 🐟, yes: [animal, water] }
+- { name: 鲸鱼, emoji: 🐋, yes: [animal, big, water], unsure: [furry] }
+- { name: 鲨鱼, emoji: 🦈, yes: [animal, water], unsure: [big] }
+- { name: 章鱼, emoji: 🐙, yes: [animal, water], unsure: [edible] }
+- { name: 螃蟹, emoji: 🦀, yes: [animal, water, legs], unsure: [edible] }
+- { name: 鸽子, emoji: 🕊️, yes: [animal, fly, legs] }
+- { name: 老鹰, emoji: 🦅, yes: [animal, fly, legs] }
+- { name: 蝴蝶, emoji: 🦋, yes: [animal, fly, legs] }
+- { name: 蚊子, emoji: 🦟, yes: [animal, fly, legs] }
+- { name: 蜜蜂, emoji: 🐝, yes: [animal, fly, legs], unsure: [furry] }
+- { name: 企鹅, emoji: 🐧, yes: [animal, legs], unsure: [water] }
+- { name: 蛇, emoji: 🐍, yes: [animal] }
+- { name: 蜘蛛, emoji: 🕷️, yes: [animal, legs], unsure: [furry] }
+- { name: 蚂蚁, emoji: 🐜, yes: [animal, legs] }
+- { name: 蜗牛, emoji: 🐌, yes: [animal] }
+- { name: 蚯蚓, emoji: 🪱, yes: [animal] }
+- { name: 蟑螂, emoji: 🪳, yes: [animal, legs], unsure: [fly] }
+- { name: 青蛙, emoji: 🐸, yes: [animal, legs], unsure: [water] }
+- { name: 乌龟, emoji: 🐢, yes: [animal, legs], unsure: [water] }
+- { name: 海豚, emoji: 🐬, yes: [animal, water], unsure: [big] }
+- { name: 水母, emoji: 🪼, yes: [animal, water] }
+- { name: 鳄鱼, emoji: 🐊, yes: [animal, legs], unsure: [big, water] }
+- { name: 蝙蝠, emoji: 🦇, yes: [animal, fly, furry, legs] }
+- { name: 公鸡, emoji: 🐓, yes: [animal, legs], unsure: [fly] }
+- { name: 羊, emoji: 🐑, yes: [animal, furry, legs] }
+- { name: 猴子, emoji: 🐒, yes: [animal, furry, legs] }
+- { name: 仓鼠, emoji: 🐹, yes: [animal, furry, legs] }
+- { name: 狮子, emoji: 🦁, yes: [animal, furry, legs], unsure: [big] }
+- { name: 婴儿, emoji: 👶, yes: [legs, person], unsure: [furry] }
+- { name: 厨师, emoji: 👨‍🍳, yes: [legs, person], unsure: [furry] }
+- { name: 消防员, emoji: 🧑‍🚒, yes: [legs, person], unsure: [wear, furry] }
+- { name: 苹果, emoji: 🍎, yes: [edible, plant] }
+- { name: 西瓜, emoji: 🍉, yes: [edible, plant] }
+- { name: 香蕉, emoji: 🍌, yes: [edible, plant] }
+- { name: 面包, emoji: 🍞, yes: [edible] }
+- { name: 鸡蛋, emoji: 🥚, yes: [edible] }
+- { name: 汉堡, emoji: 🍔, yes: [edible] }
+- { name: 冰淇淋, emoji: 🍦, yes: [edible], unsure: [liquid] }
+- { name: 火锅, emoji: 🍲, yes: [edible], unsure: [edible, liquid, cook] }
+- { name: 牛奶, emoji: 🥛, yes: [edible, liquid] }
+- { name: 可乐, emoji: 🥤, yes: [edible, liquid] }
+- { name: 咖啡, emoji: ☕, yes: [edible, liquid] }
+- { name: 洗发水, emoji: 🧴, yes: [liquid], unsure: [container] }
+- { name: 汽油, emoji: ⛽, yes: [liquid] }
+- { name: 墨水, emoji: 🖋️, yes: [liquid] }
+- { name: 手机, emoji: 📱, yes: [plug, screen], unsure: [metal] }
+- { name: 电视, emoji: 📺, yes: [plug, screen], unsure: [big] }
+- { name: 冰箱, emoji: 🧊, yes: [plug, container], unsure: [big, metal, cook] }
+- { name: 电饭煲, emoji: 🍚, yes: [plug, cook], unsure: [metal, container] }
+- { name: 吹风机, emoji: 💨, yes: [plug] }
+- { name: 电动牙刷, emoji: 🪥, yes: [plug] }
+- { name: 台灯, emoji: 💡, yes: [plug], unsure: [metal] }
+- { name: 耳机, emoji: 🎧, yes: [wear], unsure: [plug] }
+- { name: 机器人, emoji: 🤖, yes: [plug, metal], unsure: [animal, big, metal, legs] }
+- { name: 汽车, emoji: 🚗, yes: [wheels, big, metal], unsure: [plug, container, screen] }
+- { name: 自行车, emoji: 🚲, yes: [wheels, metal], unsure: [big, metal] }
+- { name: 滑板, emoji: 🛹, yes: [wheels] }
+- { name: 行李箱, emoji: 🧳, yes: [wheels, container] }
+- { name: 购物车, emoji: 🛒, yes: [wheels, metal, container], unsure: [metal] }
+- { name: 火车, emoji: 🚆, yes: [wheels, big, metal], unsure: [plug] }
+- { name: 轮椅, emoji: 🦽, yes: [wheels], unsure: [metal] }
+- { name: 飞机, emoji: ✈️, yes: [fly, wheels, big, metal], unsure: [plug, screen] }
+- { name: 直升机, emoji: 🚁, yes: [fly, big, metal], unsure: [wheels, screen] }
+- { name: 无人机, emoji: 🛸, yes: [fly, plug], unsure: [metal] }
+- { name: 热气球, emoji: 🎈, yes: [fly, big], unsure: [container] }
+- { name: 硬币, emoji: 🪙, yes: [metal] }
+- { name: 钥匙, emoji: 🔑, yes: [metal] }
+- { name: 剪刀, emoji: ✂️, yes: [metal] }
+- { name: 菜刀, emoji: 🔪, yes: [metal, cook] }
+- { name: 炒锅, emoji: 🍳, yes: [metal, cook], unsure: [metal, container] }
+- { name: 勺子, emoji: 🥄, yes: [cook], unsure: [metal] }
+- { name: 筷子, emoji: 🥢, yes: [cook], unsure: [wood] }
+- { name: 碗, emoji: 🥣, yes: [cook, container] }
+- { name: 帽子, emoji: 🧢, yes: [wear] }
+- { name: 袜子, emoji: 🧦, yes: [wear] }
+- { name: 围巾, emoji: 🧣, yes: [wear], unsure: [furry] }
+- { name: 眼镜, emoji: 👓, yes: [wear], unsure: [metal, legs] }
+- { name: 戒指, emoji: 💍, yes: [metal, wear] }
+- { name: 手表, emoji: ⌚, yes: [wear], unsure: [plug, metal] }
+- { name: 高跟鞋, emoji: 👠, yes: [wear] }
+- { name: 皇冠, emoji: 👑, yes: [metal, wear] }
+- { name: 大树, emoji: 🌳, yes: [big, plant] }
+- { name: 仙人掌, emoji: 🌵, yes: [plant] }
+- { name: 向日葵, emoji: 🌻, yes: [plant] }
+- { name: 石头, emoji: 🪨, yes: [], unsure: [big] }
+- { name: 书, emoji: 📕, yes: [] }
+- { name: 雨伞, emoji: ☂️, yes: [], unsure: [metal] }
+- { name: 椅子, emoji: 🪑, yes: [legs], unsure: [metal, wood] }
+- { name: 房子, emoji: 🏠, yes: [big], unsure: [container] }
+- { name: 泰迪熊, emoji: 🧸, yes: [legs], unsure: [furry] }
+- { name: 雪人, emoji: ⛄, yes: [], unsure: [big] }
+- { name: 蜡烛, emoji: 🕯️, yes: [] }
+- { name: 足球, emoji: ⚽, yes: [] }
+- { name: 铅笔, emoji: ✏️, yes: [wood] }
+
+# ---------- 扩充 2026-11-11：模型生成、复核，人工审过 ----------
+- { name: 电脑, emoji: 💻, yes: [plug, screen] }
+- { name: 平板, emoji: 📱, yes: [plug, screen] }
+- { name: 相机, emoji: 📷, yes: [plug, screen] }
+- { name: 计算器, emoji: 🧮, yes: [plug, screen] }
+- { name: 书包, emoji: 🎒, yes: [container] }
+- { name: 口袋, emoji: 👖, yes: [container] }
+- { name: 钱包, emoji: 👛, yes: [container] }
+- { name: 抽屉, emoji: 🗄️, yes: [container], unsure: [wood] }
+- { name: 水, emoji: 💧, yes: [edible, liquid] }
+- { name: 酒, emoji: 🍷, yes: [edible, liquid] }
+- { name: 盘, emoji: 🍽️, yes: [cook] }
+- { name: 玫瑰, emoji: 🌹, yes: [plant] }
+- { name: 兰花, emoji: 🌸, yes: [plant] }
+- { name: 鱼, emoji: 🐟, yes: [animal, water], unsure: [edible] }
+- { name: 虾, emoji: 🦐, yes: [animal, edible, water, legs] }
+- { name: 鸡, emoji: 🐔, yes: [animal, legs], unsure: [edible, furry] }
+- { name: 猪, emoji: 🐷, yes: [animal, legs], unsure: [edible, furry] }
+- { name: 电动车, emoji: 🛵, yes: [plug, wheels], unsure: [big, metal] }
+- { name: 平衡车, emoji: 🛴, yes: [plug, wheels] }
+- { name: 电梯, emoji: 🛗, yes: [plug, big, metal], unsure: [container] }
+- { name: 马车, emoji: 🐎, yes: [wheels, big, wood], unsure: [container] }
+- { name: 卡车, emoji: 🚛, yes: [wheels, big, metal, container] }
+- { name: 集装箱, emoji: 📦, yes: [big, metal, container] }
+- { name: 桌子, emoji: 🪵, yes: [wood, legs] }
+- { name: 书架, emoji: 📚, yes: [wood, container, legs], unsure: [big] }
+- { name: 床, emoji: 🛏️, yes: [wood, legs], unsure: [big] }
+- { name: 腰包, emoji: 👝, yes: [wear, container] }
+- { name: 盆, emoji: 🥣, yes: [cook, container] }
+- { name: 微波炉, emoji: 📻, yes: [plug, cook], unsure: [container] }
+- { name: 榨汁机, emoji: 🍹, yes: [plug, cook] }
+- { name: 豆浆机, emoji: 🥛, yes: [plug, cook] }
+- { name: 咖啡机, emoji: ☕, yes: [plug, cook] }
+- { name: 骆驼, emoji: 🐫, yes: [animal, big, furry, legs], unsure: [edible] }
+- { name: 牦牛, emoji: 🐂, yes: [animal, big, furry, legs], unsure: [edible] }
+- { name: 龙虾, emoji: 🦞, yes: [animal, edible, water, legs] }
+- { name: 游戏机, emoji: 🎮, yes: [plug, screen] }
+- { name: 耳环, emoji: 💍, yes: [metal, wear] }
+- { name: 手镯, emoji: 💍, yes: [metal, wear] }
+- { name: 胸针, emoji: 📌, yes: [metal, wear] }
+- { name: 果汁, emoji: 🧃, yes: [edible, liquid], unsure: [plant] }
+- { name: 豆浆, emoji: 🥛, yes: [edible, liquid] }
+- { name: 摩托车, emoji: 🏍️, yes: [wheels, big, metal] }
+- { name: 压路机, emoji: 🚜, yes: [wheels, big, metal] }
+- { name: 玉米, emoji: 🌽, yes: [edible, plant] }
+- { name: 甘蔗, emoji: 🎋, yes: [edible, plant] }
+- { name: 医生, emoji: 👨‍⚕️, yes: [legs, person], unsure: [furry] }
+- { name: 老师, emoji: 👨‍🏫, yes: [legs, person], unsure: [furry] }
+- { name: 牛, emoji: 🐮, yes: [animal, big, furry, legs], unsure: [edible] }
+
+# ---------- 扩充 2026-11-11：模型生成、复核，人工审过 ----------
+- { name: 鼓, emoji: 🥁, yes: [], unsure: [wood] }
+- { name: 学生, emoji: 🎒, yes: [legs, person], unsure: [furry] }
+- { name: 护士, emoji: 👩‍⚕️, yes: [legs, person], unsure: [furry] }
+- { name: 警察, emoji: 👮, yes: [legs, person], unsure: [furry] }
+- { name: 司机, emoji: 🚗, yes: [legs, person], unsure: [furry] }
+- { name: 农民, emoji: 👨‍🌾, yes: [legs, person], unsure: [furry] }
+- { name: 工人, emoji: 👷, yes: [legs, person], unsure: [furry] }
+- { name: 记者, emoji: 👨‍💼, yes: [legs, person], unsure: [furry] }
+- { name: 律师, emoji: 👨‍⚖️, yes: [legs, person], unsure: [furry] }
+- { name: 演员, emoji: 🎭, yes: [legs, person], unsure: [furry] }
+- { name: 画家, emoji: 👨‍🎨, yes: [legs, person], unsure: [furry] }
+- { name: 歌手, emoji: 🎤, yes: [legs, person], unsure: [furry] }
+- { name: 收银机, emoji: 🧾, yes: [plug, screen] }
+- { name: 取款机, emoji: 🏧, yes: [plug, screen], unsure: [big, metal] }
+- { name: 导航仪, emoji: 🧭, yes: [plug, screen] }
+- { name: 售票机, emoji: 🎫, yes: [plug, screen], unsure: [big, legs] }
+- { name: 松树, emoji: 🌲, yes: [plant], unsure: [big] }
+- { name: 柳树, emoji: 🌳, yes: [big, plant] }
+- { name: 杨树, emoji: 🌳, yes: [big, plant] }
+- { name: 竹子, emoji: 🎋, yes: [plant], unsure: [big, wood] }
+- { name: 菊花, emoji: 🌼, yes: [plant] }
+- { name: 梅花, emoji: 🌸, yes: [plant] }
+
+# ---------- 扩充 2026-11-11：模型生成、复核，人工审过 ----------
+- { name: 吉他, emoji: 🎸, yes: [wood] }
+- { name: 小提琴, emoji: 🎻, yes: [wood] }
+- { name: 钢琴, emoji: 🎹, yes: [wood, legs], unsure: [big] }
+- { name: 擀面杖, emoji: 🥖, yes: [cook], unsure: [wood] }
+- { name: 梯子, emoji: 🪜, yes: [], unsure: [wood, legs] }
+- { name: 凳子, emoji: 🪑, yes: [legs], unsure: [wood] }
+- { name: 衣柜, emoji: 🗄️, yes: [big, container], unsure: [wood] }
+- { name: 书柜, emoji: 🗄️, yes: [big, wood, container], unsure: [legs] }
+- { name: 门, emoji: 🚪, yes: [], unsure: [big, wood] }
+- { name: 算盘, emoji: 🧮, yes: [wood] }
+- { name: 牙签, emoji: 🥢, yes: [wood], unsure: [cook] }
+- { name: 火柴, emoji: 🔥, yes: [wood] }
+- { name: 积木, emoji: 🧱, yes: [], unsure: [wood] }
+- { name: 篮子, emoji: 🧺, yes: [container], unsure: [wood] }
+- { name: 衣架, emoji: 🧥, yes: [], unsure: [wood] }
+- { name: 象棋, emoji: ♟️, yes: [], unsure: [wood] }
+- { name: 显示器, emoji: 🖥️, yes: [plug, screen] }
+- { name: 摄像机, emoji: 📹, yes: [plug], unsure: [screen] }
+- { name: 跑步机, emoji: 🏃, yes: [plug, big], unsure: [metal, legs] }
+- { name: 售货机, emoji: 🎰, yes: [plug, big], unsure: [metal, container, screen] }
+- { name: 监视器, emoji: 📹, yes: [plug, screen] }
+- { name: 学习机, emoji: 📱, yes: [plug, screen] }
+
+# ---------- 扩充 2026-11-11：模型生成、复核，人工审过 ----------
+- { name: 拐杖, emoji: 🦯, yes: [], unsure: [wood] }
+- { name: 船桨, emoji: 🚣, yes: [], unsure: [wood] }
+- { name: 毛笔, emoji: 🖌️, yes: [wood] }
+- { name: 鸟笼, emoji: 🕊️, yes: [container], unsure: [metal] }
+- { name: 扫帚, emoji: 🧹, yes: [wood], unsure: [plant] }
+- { name: 菜板, emoji: 🪵, yes: [cook, wood] }

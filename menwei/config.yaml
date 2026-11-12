@@ -1,0 +1,244 @@
+# 《门卫交班夜》核心参数
+# 改完刷新网页即可生效，不用重启服务。格式写错时，开始页会提示哪一行有问题。
+# 熟客名单在同目录的 guests.yaml。
+
+# ---------- 一局的节奏 ----------
+round:
+  examples:            # 开局老K 当面示范
+    in: 1              # 放进几位
+    out: 1             # 拦下几位
+    # 多特征规则：每个特征都在示范里露一次脸（例：“有轮子或者要插电”会放进一位电器、一位带轮子的），
+    # 示范会因此多出一位。关掉的话，考题里的陷阱客人可能考到玩家从没见过线索的特征
+    cover_each_term: true
+  probes: 8            # 一根烟的工夫，玩家最多能领几位客人去试
+  exam:                # 最后由玩家来判的客人
+    size: 5            # 共几位
+    min_in: 2          # 其中至少几位该进
+    max_in: 3          # 其中最多几位该进
+    traps: 2           # 多特征规则：每个特征先各配一位“只看这一个特征就会判错”的陷阱客人，总数不少于这个数
+  name_max_len: 8      # 玩家输入的客人名字最长几个字
+
+# ---------- 规则怎么出 ----------
+rules:
+  # 难度档。terms = 一条规则由几个特征组成（规则混合数量）
+  #   ops：多个特征怎么组合。and = 都满足才进（“而且”/“但”）；or = 满足任一就进（“或者”）
+  #   max_negations：最多几个特征用否定说法（“不会飞”“没有轮子”）。“或者”规则只用肯定说法
+  #   label：练习选难度时给玩家看的名字
+  levels:
+    easy:                          # 例：会飞的才能进 / 不是动物的才能进
+      terms: 1
+      ops: [and]
+      max_negations: 1
+      label: 简单
+    medium:                        # 例：是动物、但不会飞的才能进
+      terms: 2
+      ops: [and]
+      max_negations: 1
+      label: 普通
+    hard:                          # 另加“或者”规则，只从下面的 or_combos 里抽
+      terms: 2
+      ops: [and, or]
+      max_negations: 1
+      label: 困难
+
+  # “或者”规则只从这些组合里抽。两个毫不相干的特征拼起来（如“有轮子或者能穿戴”）玩家只能碰运气，
+  # 挑放在一起说得通的，悟出来才有“原来如此”的感觉。可以写 3 个特征一组，给 terms: 3 的难度档用
+  or_combos:
+    - [fly, water]       # 会飞或者住在水里：不在地上走的
+    - [fly, wheels]      # 会飞或者有轮子：天上飞的、地上滚的
+    - [edible, cook]     # 能吃能喝或者是厨具餐具：饭桌上的
+    - [liquid, water]    # 是液体或者住在水里：跟水沾边的
+    - [plug, wheels]     # 要插电或者有轮子：机器和车
+
+  # 每日题（今晚交班）一周的难度安排
+  weekly: { 周一: easy, 周二: easy, 周三: medium, 周四: medium, 周五: hard, 周六: hard, 周日: hard }
+  # 练习一局可以选的难度，顺序就是按钮顺序。玩家也可以选“随机”，再从这里面抽
+  practice: [easy, medium, hard]
+
+  # 出题前的平衡检查（按 guests.yaml 里的熟客统计），不满足的规则会被丢掉重抽
+  balance:
+    min_in: 4                # 熟客里至少几位能进
+    min_out: 4               # 熟客里至少几位不能进
+    min_ratio: 0.06          # 能进的比例下限（按全部熟客算，熟客越多越难达标，扩充名单后要留意）
+    max_ratio: 0.8           # 能进的比例上限
+    min_discriminating: 2    # 多特征规则：每个特征都至少要有几位熟客能戳穿“只看这一个特征”的猜法
+
+  no_repeat_days: 14         # 每日题多少天内不重复同一条规则
+  practice_no_repeat: 8      # 练习一局：最近几局练过的规则不再抽到（今晚的每日题也不会出现在练习里）
+  epoch: 2026-11-01          # 开服日，用来算“今晚交班 #几”
+
+# ---------- 特征池：老K 判断客人只看这些 ----------
+# id：内部编号，guests.yaml 里用它标注
+# name：短名，也是模型输出 JSON 的字段名
+# yes / no：符合、不符合时的说法，用于规则文字和结算表
+# judge：交给模型的判断标准，边界情况写得越清楚，模型越不容易判错
+# enabled：false 表示暂时不用这个特征出规则
+attributes:
+  - id: animal
+    name: 动物
+    yes: 是动物
+    no: 不是动物
+    judge: 是动物（昆虫、蜘蛛、虫子、鱼、鸟、蛇、青蛙、恐龙都算；人不算，人只算“是人”；植物、机器、玩具、标本也不算）
+    enabled: true
+  - id: edible
+    name: 能吃喝
+    yes: 能吃能喝
+    no: 不能吃喝
+    judge: 平时被人当作食物或饮料吃喝
+    enabled: true
+  - id: fly
+    name: 会飞
+    yes: 会飞
+    no: 不会飞
+    judge: 自己能飞上天（靠翅膀或引擎都算；只会扑腾几下的不算）
+    enabled: true
+  - id: plug
+    name: 要插电
+    yes: 要插电
+    no: 不用插电
+    judge: 要用电才能工作（插电、充电、装电池都算）
+    enabled: true
+  - id: wheels
+    name: 有轮子
+    yes: 有轮子
+    no: 没有轮子
+    judge: 有轮子
+    enabled: true
+  - id: big
+    name: 比人大
+    yes: 比人大
+    no: 不比人大
+    judge: 通常比一个成年人大
+    enabled: true
+  - id: liquid
+    name: 是液体
+    yes: 是液体
+    no: 不是液体
+    judge: 通常是液体
+    enabled: true
+  - id: water
+    name: 住水里
+    yes: 住在水里
+    no: 不住在水里
+    judge: 是生活在水里的生物（鱼、鲸、水母等；船和两栖动物不算）
+    enabled: true
+  - id: metal
+    name: 金属做的
+    yes: 是金属做的
+    no: 不是金属做的
+    judge: 主要由金属做成
+    enabled: true
+  - id: wear
+    name: 能穿戴
+    yes: 能穿戴
+    no: 不能穿戴
+    judge: 是能穿或戴在人身上的东西（衣服、鞋帽、首饰、眼镜等；人和动物本身不算）
+    enabled: true
+  - id: cook
+    name: 厨具餐具
+    yes: 是厨具餐具
+    no: 不是厨具餐具
+    judge: 是做饭或吃饭用的工具、电器（锅碗瓢盆、筷子勺子、厨房电器）
+    enabled: true
+  - id: furry
+    name: 长毛
+    yes: 长毛
+    no: 不长毛
+    judge: 身上长着毛发（羽毛、鳞片不算）
+    enabled: true
+  - id: plant
+    name: 植物
+    yes: 是植物
+    no: 不是植物
+    judge: 是植物（花草树木、蔬菜水果都算；木头家具、纸、棉布这类用植物做成的东西不算）
+    enabled: true
+  - id: wood
+    name: 木头做的
+    yes: 是木头做的
+    no: 不是木头做的
+    judge: 主要由木头或竹子做成（活着的树不算）
+    enabled: true
+  - id: container
+    name: 能装东西
+    yes: 能装东西
+    no: 不能装东西
+    judge: 是专门用来装东西的（杯碗瓶罐、包、盒子、箱子、柜子都算；只是带口袋的衣服不算）
+    enabled: true
+  - id: screen
+    name: 有屏幕
+    yes: 有屏幕
+    no: 没有屏幕
+    judge: 带有能显示画面的屏幕（手机、电视、电脑都算；镜子、普通手表、窗户不算）
+    enabled: true
+  - id: legs
+    name: 有腿
+    yes: 有腿
+    no: 没有腿
+    judge: 有腿或脚（人、大多数动物、桌子椅子都算；蛇、鱼、蜗牛不算，章鱼的触手也不算）
+    enabled: true
+  - id: person
+    name: 是人
+    yes: 是人
+    no: 不是人
+    judge: 是人（各种年龄、职业的人都算，包括虚构的人物；机器人、动物不算）
+    enabled: true
+
+# ---------- 模型怎么判断熟客以外的客人 ----------
+model:
+  temperature: 0          # 0 = 同一位客人每次判断都一样
+  timeout_ms: 12000       # 单次请求超时
+  # 复核：规则用到的特征再单独问模型一遍；两次不一致，老K 就说“拿不准”，不算玩家次数
+  double_check: true
+  # 给模型看的示范答案（few-shot）。yes 里填符合的特征 id，known: false 表示“不算客人”
+  # 客人只认常见名词本身；带形容词、材质、颜色前缀的说法（会飞的猪、木头勺子）不算客人
+  scan_examples:
+    - { guest: 鲸鱼, emoji: 🐋, yes: [animal, big, water] }
+    - { guest: 电动牙刷, emoji: 🪥, yes: [plug] }
+    - { guest: 桌子, emoji: 🪵, yes: [wood, legs] }
+    - { guest: 会飞的猪, emoji: ❔, known: false }
+    - { guest: 星期一, emoji: ❔, known: false }
+  # 复核时单题问答的示范
+  check_examples:
+    - { guest: 蜗牛, attribute: animal, answer: true }
+    - { guest: 铅笔, attribute: metal, answer: false }
+    - { guest: 遥控器, attribute: plug, answer: true }
+    - { guest: 桌子, attribute: legs, answer: true }
+
+# ---------- 计分：三项加起来就是满分 ----------
+# 总分 = 判对分 + (省烟奖励 + 速度奖励) × 判对比例
+# 两项奖励之和要小于「判对一位」的分数，才能保证多判对一位永远比又快又省更值钱
+scoring:
+  # 考 5 位、满分 100 时：每位 17 分、奖励共 15 分，是奖励能给到的最大整数组合
+  correct: 85          # 判对分：平均分给最后几位客人（5 位 → 每位 17）
+  probes_bonus: 10     # 省烟奖励：按没领满的比例给，一位都不领拿满
+  time_bonus: 5        # 速度奖励：只计玩家能操作的时间，等老K 判断、动画都不算
+  time_full: 30        # 用时不超过几秒，速度奖励拿满
+  time_zero: 300       # 用时达到几秒，速度奖励为 0（5 分钟；中间按比例递减）
+  decimals: 0          # 分数保留几位小数，0 = 整数
+
+# ---------- 结局评价：全对时按领了几位，从上往下取第一条满足的 ----------
+grades:
+  - { max_probes: 3, mark: 🕶️, title: 老K 摘下墨镜递给你, line: 「我看了二十年门，你一根烟就悟了。」 }
+  - { max_probes: 6, mark: 🕶️, title: 老K 把墨镜交给你, line: 「这门，归你了。」 }
+  - { max_probes: 99, mark: 😮‍💨, title: 老K 犹豫了一下，还是把墨镜给了你, line: 「烟都抽完了才悟，以后多看着点。」 }
+fail: { mark: 🚪, title: 老K 叹了口气, line: 「明天再来实习吧。」 }
+
+# ---------- 老K 的台词：写成列表的会随机挑一句；{n} 换成数字，{name} 换成客人名字 ----------
+lines:
+  show_in: 看好了。这位，进。
+  show_out: 这位，不进。
+  briefing: 我抽根烟。烟灭之前，你从队伍里领人过来，最多 {n} 位。
+  in: ["进。", "进去吧。", "里边请。", "{name}，进去吧。", "嗯，{name}可以。", "{name}，放行。", "行，让{name}进。", "{name}今晚行。"]
+  out: ["不行。", "下一位。", "回去吧。", "{name}，今晚不行。", "{name}别站这儿。", "{name}，拒了。", "今晚没{name}什么事。", "{name}，一边去。"]
+  again: ["{name}刚来过。", "领过了，换一位。", "{name}已经看过了。", "别反复领{name}。", "{name}来过了，换一个。"]
+  unknown: ["你领来的是个啥？换个常见的东西、动物或人，不算。", "这不算客人，不算你的。", "{name}？没听说过，不算。", "没{name}这号，换个常见的。"]
+  modifier: ["别加形容词，领客人本人来。不算。", "说常见的名字就行，别带“的”。不算。", "{name}不行。别加形容，报本人。"]
+  unsure: ["这位……我也拿不准。不算，再领一位。", "{name}说不清，不算你的。", "{name}我吃不准，这回不算。", "说不准{name}，不算次数，再领一位。"]
+  offline: ["队伍里没{name}。", "没见过{name}。"]
+  smoke_out: 烟抽完了。门交给你。
+  exam_intro: 我下班了，在后面看着。最后 {n} 位，你来。
+  # 最后考验：点评刚判过的那位，{name} 换成客人名字。要说出对错，也要说出该不该进
+  right_in: ["嗯，{name}可以进。", "对，{name}该放行。", "没错，{name}进去吧。", "{name}，进得对。", "行，{name}是该进的。", "有眼力，{name}确实能进。"]
+  right_out: ["嗯，{name}不该进。", "对，{name}拦住就对了。", "没错，{name}今晚不行。", "{name}，拒得对。", "行，{name}就该挡在门外。", "{name}不能进，你没放错。"]
+  wrong_in: ["错了，{name}可以进。", "不对，{name}该放行。", "{name}能进，你拦错了。", "差了，{name}是该进的。", "{name}你给拒了？该进。", "回头看看，{name}可以进来。"]
+  wrong_out: ["错了，{name}不该进。", "不对，{name}不能放。", "{name}不该进来，你放错了。", "{name}，拦下才对。", "这回偏了，{name}今晚不行。", "{name}进不去，你倒放进去了。"]
